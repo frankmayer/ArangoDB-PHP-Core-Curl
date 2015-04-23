@@ -8,7 +8,7 @@
  * @copyright Copyright 2013, FRANKMAYER.NET, Athens, Greece
  */
 
-namespace frankmayer\ArangoDbPhpCoreGuzzle;
+namespace frankmayer\ArangoDbPhpCoreCurl;
 
 use frankmayer\ArangoDbPhpCore\ClientException;
 use frankmayer\ArangoDbPhpCore\Exception;

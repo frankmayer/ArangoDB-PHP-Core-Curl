@@ -1,20 +1,19 @@
-##ArangoDB-PHP-Core-Guzzle
-This library adds [Guzzle 5](https://github.com/guzzle/guzzle) support to the [ArangoDB-PHP-Core](https://github.com/frankmayer/ArangoDB-PHP-Core) client.
+##ArangoDB-PHP-Core-Curl
+This library adds Curl support to the [ArangoDB-PHP-Core](https://github.com/frankmayer/ArangoDB-PHP-Core) client.
 
 
 [![Join the chat at https://gitter.im/frankmayer/ArangoDB-PHP-Core](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/frankmayer/ArangoDB-PHP-Core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
-[![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle.png)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Guzzle)
+[![Build Status](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Curl.png)](https://travis-ci.org/frankmayer/ArangoDB-PHP-Core-Curl)
 
-[![Coverage Status](https://coveralls.io/repos/frankmayer/ArangoDB-PHP-Core-Guzzle/badge.png)](https://coveralls.io/r/frankmayer/ArangoDB-PHP-Core-Guzzle)
+[![Coverage Status](https://coveralls.io/repos/frankmayer/ArangoDB-PHP-Core-Curl/badge.png)](https://coveralls.io/r/frankmayer/ArangoDB-PHP-Core-Curl)
 [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/frankmayer/ArangoDB-PHP-Core/blob/devel/LICENSE.md)
 
 
 ####Highlights:
 
-- Provides Guzzle 5 support to ArangoDB-PHP-Core
-- Virtually should support any Guzzle 5 connection handler (Curl & ReactPHP(Streams) are tested) that is supported via RingPHP 
+- Provides Curl support to ArangoDB-PHP-Core
 
 
 ####PHP Versions:

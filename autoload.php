@@ -1,8 +1,6 @@
 <?php
 
-namespace frankmayer\ArangoDbPhpNg;
-
-use frankmayer\ArangoDbPhpCoreGuzzle\Autoloader;
+namespace frankmayer\ArangoDbPhpCoreCurl;
 
 require dirname(
         __FILE__
