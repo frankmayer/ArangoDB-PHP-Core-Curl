@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         bootstrap="tests/bootstrap.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="false"
+        >
+    <testsuites>
+        <testsuite name="ArangoDB-PHP-Core-Curl-Unit">
+            <directory>./tests/Unit/</directory>
+        </testsuite>
+        <testsuite name="ArangoDB-PHP-Core-Curl-Integration">
+            <directory>./tests/Integration/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

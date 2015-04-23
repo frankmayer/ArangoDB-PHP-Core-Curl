@@ -1,0 +1,39 @@
+{
+  "name": "frankmayer/arango-db-php-core-curl",
+  "type": "library",
+  "description": "ArangoDB PHP Core - Curl Provider",
+  "keywords": [
+    "database",
+    "ArangoDb",
+    "Arango",
+    "document store",
+    "NoSQL"
+  ],
+  "homepage": "https://github.com/frankmayer/ArangoDB-PHP-Core-Curl",
+  "license": [
+    "Apache-2.0"
+  ],
+  "authors": [
+    {
+      "name": "Frank Mayer",
+      "homepage": "https://github.com/frankmayer/ArangoDB-PHP-Core-Curl",
+      "role": "Developer"
+    },
+    {
+      "name": "Contributors",
+      "homepage": "https://github.com/frankmayer/ArangoDB-PHP-Core-Curl/graphs/contributors"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "frankmayer/arangodb-php-core": "dev-master"
+  },
+  "require-dev": {
+    "satooshi/php-coveralls": "dev-master"
+  },
+  "autoload": {
+    "psr-0": {
+      "frankmayer\\ArangoDbPhpCoreCurl": "lib/"
+    }
+  }
+}
