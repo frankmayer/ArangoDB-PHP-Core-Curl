@@ -1,5 +1,5 @@
 {
-  "name": "frankmayer/arango-db-php-core-curl",
+  "name": "frankmayer/arangodb-php-core-curl",
   "type": "library",
   "description": "ArangoDB PHP Core - Curl Provider",
   "keywords": [
