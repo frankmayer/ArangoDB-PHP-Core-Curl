@@ -37,6 +37,7 @@ Thanks !!
 
 
 ###### Todo's:
+- [ ] Stabilize interoperability with Core
 - [ ] More tests
 - [ ] Docs
 
