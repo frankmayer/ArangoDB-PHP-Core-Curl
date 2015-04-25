@@ -12,11 +12,13 @@ namespace frankmayer\ArangoDbPhpCoreCurl;
 
 
 require_once('ArangoDbPhpCoreCurlApiTestCase.php');
+require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/DocumentTest.php';
 
 use frankmayer\ArangoDbPhpCore\Api\Rest\Collection;
 use frankmayer\ArangoDbPhpCore\Api\Rest\Document;
 use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCore\ClientException;
+use frankmayer\ArangoDbPhpCore\Tests\Integration\DocumentIntegrationTest;
 use frankmayer\ArangoDbPhpCoreCurl\Connectors\Connector;
 use HttpResponse;
 
@@ -25,8 +27,7 @@ use HttpResponse;
  * Class DocumentTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class DocumentTest extends
-    ArangoDbPhpCoreCurlApiTestCase
+class DocumentTest extends DocumentIntegrationTest
 {
     /**
      * @var Client
@@ -47,26 +48,25 @@ class DocumentTest extends
         $collectionOptions    = ["waitForSync" => true];
         $collectionParameters = [];
         $options              = $collectionOptions;
-        Client::bind(
+        $this->client->bind(
             'Request',
             function () {
-                $request         = new $this->client->requestClass();
+                $request         = new $this->client->requestClass($this);
                 $request->client = $this->client;
 
                 return $request;
             }
         );
 
-        // And here's how one gets an HttpRequest object through the IOC.
-        // Note that the type-name 'httpRequest' is the name we bound our HttpRequest class creation-closure to. (see above)
-        $request          = Client::make('Request');
+
+        $request          = $this->client->make('Request');
         $request->options = $options;
         $request->body    = ['name' => $collectionName];
 
         $request->body = self::array_merge_recursive_distinct($request->body, $collectionParameters);
         $request->body = json_encode($request->body);
 
-        $request->path   = $request->getDatabasePath() . self::API_COLLECTION;
+        $request->path   = $this->client->fullDatabasePath . self::API_COLLECTION;
         $request->method = self::METHOD_POST;
 
         $responseObject = $request->send();
@@ -94,12 +94,12 @@ class DocumentTest extends
 
         // And here's how one gets an HttpRequest object through the IOC.
         // Note that the type-name 'httpRequest' is the name we bound our HttpRequest class creation-closure to. (see above)
-        $request          = Client::make('Request');
+        $request          = $this->client->make('Request');
         $request->options = $options;
         $request->body    = $requestBody;
         $request->body    = self::array_merge_recursive_distinct($request->body, $collectionParameters);
         $request->body    = json_encode($request->body);
-        $request->path    = $request->getDatabasePath() . self::API_DOCUMENT;
+        $request->path    = $this->client->fullDatabasePath . self::API_DOCUMENT;
 
         if (isset($collectionName)) {
             $urlQuery = array_merge(
@@ -155,7 +155,7 @@ class DocumentTest extends
         $collection         = new Collection($this->client);
         $collection->client = $this->client;
 
-        $responseObject = $collection->delete($collectionName);
+        $responseObject = $collection->drop($collectionName);
         $responseBody   = $responseObject->body;
 
         $this->assertArrayHasKey('code', json_decode($responseBody, true));
@@ -385,19 +385,20 @@ class DocumentTest extends
 
         $collectionOptions = ["waitForSync" => true];
         $options           = $collectionOptions;
-        Client::bind(
-            'httpRequest',
+        $this->client->bind(
+            'Request',
             function () {
-                $request         = new $this->client->requestClass();
+                $request         = new $this->client->requestClass($this);
                 $request->client = $this->client;
 
                 return $request;
             }
         );
 
-        $request          = Client::make('Request');
+
+        $request          = $this->client->make('Request');
         $request->options = $options;
-        $request->path    = $request->getDatabasePath() . self::API_COLLECTION . '/' . $collectionName;
+        $request->path    = $this->client->fullDatabasePath . self::API_COLLECTION . '/' . $collectionName;
         $request->method  = self::METHOD_DELETE;
 
         /** @var HttpResponse $responseObject */
@@ -415,6 +416,6 @@ class DocumentTest extends
         $collection->client = $this->client;
 
         /** @var $responseObject HttpResponse */
-        $collection->delete($collectionName);
+        $collection->drop($collectionName);
     }
 }

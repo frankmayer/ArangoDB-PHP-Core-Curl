@@ -1,9 +1,9 @@
 <?php
 
 /**
- * ArangoDB PHP Core Client: Autoloader
+ * ArangoDB PHP Core Curl Provider: Autoloader
  *
- * @package   frankmayer\ArangoDbPhpCore
+ * @package   frankmayer\ArangoDbPhpCoreCurl
  * @author    Frank Mayer
  * @copyright Copyright 2013, FRANKMAYER.NET, Athens, Greece
  */
@@ -18,7 +18,7 @@ use frankmayer\ArangoDbPhpCore\Exception;
  * The autoloader can be nested with other autoloaders. It will only
  * process classes from its own namespace and ignore all others.
  *
- * @package frankmayer\ArangoDbPhpCore
+ * @package frankmayer\ArangoDbPhpCoreCurl
  */
 class Autoloader
 {
