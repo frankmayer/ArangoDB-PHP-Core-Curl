@@ -10,12 +10,14 @@
 namespace frankmayer\ArangoDbPhpCoreCurl;
 
 require_once('ArangoDbPhpCoreCurlApiTestCase.php');
+require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/ExceptionTest.php';
 
 use frankmayer\ArangoDbPhpCore\Client;
+use frankmayer\ArangoDbPhpCore\Tests\Integration\ExceptionIntegrationTest;
 use frankmayer\ArangoDbPhpCoreCurl\Connectors\Connector;
 
 
-class ExceptionTest extends ArangoDbPhpCoreCurlApiTestCase
+class ExceptionTest extends ExceptionIntegrationTest
 {
 
     /**

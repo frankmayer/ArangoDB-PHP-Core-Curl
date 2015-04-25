@@ -10,12 +10,14 @@
 namespace frankmayer\ArangoDbPhpCoreCurl;
 
 require_once('ArangoDbPhpCoreCurlApiTestCase.php');
+require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/SyncTest.php';
 
 use frankmayer\ArangoDbPhpCore\Client;
+use frankmayer\ArangoDbPhpCore\Tests\Integration\SyncIntegrationTest;
 use frankmayer\ArangoDbPhpCoreCurl\Connectors\Connector;
 
 
-class SyncTest extends ArangoDbPhpCoreCurlApiTestCase
+class SyncTest extends SyncIntegrationTest
 {
     /**
      * base URL part for cursor related operations
@@ -42,48 +44,5 @@ class SyncTest extends ArangoDbPhpCoreCurlApiTestCase
     {
         $connector    = new Connector();
         $this->client = getClient($connector);
-    }
-
-
-    /**
-     * Test if we can get the server version
-     */
-    public function testSync()
-    {
-        $collectionParameters = [];
-
-        Client::bind(
-            'Request',
-            function () {
-                $request         = new $this->client->requestClass();
-                $request->client = $this->client;
-
-                return $request;
-            }
-        );
-        $query = 'RETURN SLEEP(1)';
-
-        $statement = ["query" => $query];
-
-        // And here's how one gets an HttpRequest object through the IOC.
-        // Note that the type-name 'httpRequest' is the name we bound our HttpRequest class creation-closure to. (see above)
-        $request = Client::make('Request');
-
-        $request->body = $statement;
-        //        $request->connectorOptions = ['future' => true];
-
-        $request->body = self::array_merge_recursive_distinct($request->body, $collectionParameters);
-        $request->body = json_encode($request->body);
-
-        $request->path   = $request->getDatabasePath() . self::URL_CURSOR;
-        $request->method = self::METHOD_POST;
-
-        $responseObject = $request->send();
-
-        $body = $responseObject->body;
-
-        $this->assertArrayHasKey('code', json_decode($body, true));
-        $decodedJsonBody = json_decode($body, true);
-        $this->assertEquals(201, $decodedJsonBody['code']);
     }
 }
