@@ -3,8 +3,9 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd ${DIR}
 
-VERSION=2.5.2
-NAME=ArangoDB-${VERSION}
+VERSION="3.0-nightly"
+NAME="ArangoDB-$VERSION"
+
 
 if [ ! -d "$DIR/$NAME" ]; then
   # download ArangoDB

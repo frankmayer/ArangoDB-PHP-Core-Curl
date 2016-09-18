@@ -3,21 +3,18 @@
 /**
  * ArangoDB PHP Core Client Test-Suite: Client Test
  *
- * @package   frankmayer\ArangoDbPhpCore
+ * @package   frankmayer\ArangoDbPhpCoreCurl
  * @author    Frank Mayer
  * @copyright Copyright 2013, FRANKMAYER.NET, Athens, Greece
  */
 
-namespace frankmayer\ArangoDbPhpCoreCurl;
+namespace frankmayer\ArangoDbPhpCoreCurl\Tests\Integration;
 
-require_once('ArangoDbPhpCoreCurlApiTestCase.php');
-require __DIR__ . '/../../vendor/frankmayer/arangodb-php-core/tests/Integration/ClientTest.php';
+require_once __DIR__ . '/ArangoDbPhpCoreCurlIntegrationTestCase.php';
 
 use frankmayer\ArangoDbPhpCore\Client;
-use frankmayer\ArangoDbPhpCore\ClientOptions;
-use frankmayer\ArangoDbPhpCore\Plugins\TracerPlugin;
-use frankmayer\ArangoDbPhpCore\Tests\Integration\ClientIntegrationTest;
 use frankmayer\ArangoDbPhpCoreCurl\Connectors\Connector;
+use function frankmayer\ArangoDbPhpCoreCurl\getClient;
 
 //todo: fix tests
 
@@ -26,33 +23,34 @@ use frankmayer\ArangoDbPhpCoreCurl\Connectors\Connector;
  * Class ClientTest
  * @package frankmayer\ArangoDbPhpCore
  */
-class ClientTest extends ClientIntegrationTest
+class ClientIntegrationTest extends
+	ArangoDbPhpCoreCurlIntegrationTestCase
 {
 
-    /**
-     * @var Client
-     */
-    public $client;
-    /**
-     * @var Connector
-     */
-    public $connector;
+	/**
+	 * @var Client
+	 */
+	public $client;
+	/**
+	 * @var Connector
+	 */
+	public $connector;
 
 
-    /**
-     *
-     */
-    public function setUp()
-    {
-        $connector       = new Connector();
-        $this->connector = $connector;
-        $this->client    = getClient($connector);
-    }
+	/**
+	 *
+	 */
+	public function setUp()
+	{
+		$this->connector = new Connector();
+		$this->client    = getClient($this->connector);
+	}
 
-    /**
-     *
-     */
-    public function tearDown()
-    {
-    }
+
+	/**
+	 *
+	 */
+	public function tearDown()
+	{
+	}
 }
