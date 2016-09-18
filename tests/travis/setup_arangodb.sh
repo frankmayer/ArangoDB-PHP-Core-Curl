@@ -9,8 +9,8 @@ NAME="ArangoDB-${VERSION}"
 
 if [ ! -d "$DIR/$NAME" ]; then
   # download ArangoDB
-  echo "wget http://www.arangodb.org/repositories/travisCI/$NAME.tar.gz"
-  wget http://www.arangodb.org/repositories/travisCI/${NAME}.tar.gz
+  echo "wget http://www.arangodb.org/repositories/nightly/travisCI/$NAME.tar.gz"
+  wget http://www.arangodb.org/repositories/nightly/travisCI/${NAME}.tar.gz
   echo "tar zxf $NAME.tar.gz"
   tar zvxf ${NAME}.tar.gz
 fi
