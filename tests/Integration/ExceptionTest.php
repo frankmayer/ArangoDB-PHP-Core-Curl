@@ -40,6 +40,7 @@ class ExceptionIntegrationTest extends
 	 * @var Client
 	 */
 	public $client;
+	protected $connector;
 
 
 	public function setUp()

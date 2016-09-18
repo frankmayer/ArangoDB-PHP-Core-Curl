@@ -16,7 +16,7 @@ use frankmayer\ArangoDbPhpCore\Api\Rest\Collection;
 use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCoreCurl\Connectors\Connector;
 use function frankmayer\ArangoDbPhpCoreCurl\getClient;
-use HttpResponse;
+use frankmayer\ArangoDbPhpCoreCurl\Protocols\Http\HttpResponse;
 
 //todo: fix tests
 
@@ -58,9 +58,7 @@ class CollectionIntegrationTest extends
 			'Request',
 			function ()
 			{
-				$request = $this->client->getRequest();
-
-				return $request;
+				return $this->client->getRequest();
 			}
 		);
 
@@ -80,10 +78,10 @@ class CollectionIntegrationTest extends
 
 		$body = $responseObject->body;
 
-		$this->assertArrayHasKey('code', json_decode($body, true));
+		static::assertArrayHasKey('code', json_decode($body, true));
 		$decodedJsonBody = json_decode($body, true);
-		$this->assertEquals(200, $decodedJsonBody['code']);
-		$this->assertEquals($collectionName, $decodedJsonBody['name']);
+		static::assertEquals(200, $decodedJsonBody['code']);
+		static::assertEquals($collectionName, $decodedJsonBody['name']);
 	}
 
 
@@ -100,9 +98,7 @@ class CollectionIntegrationTest extends
 			'Request',
 			function ()
 			{
-				$request = $this->client->getRequest();
-
-				return $request;
+				return $this->client->getRequest();
 			}
 		);
 
@@ -116,9 +112,9 @@ class CollectionIntegrationTest extends
 		$responseObject = $request->send();
 		$body           = $responseObject->body;
 
-		$this->assertArrayHasKey('code', json_decode($body, true));
+		static::assertArrayHasKey('code', json_decode($body, true));
 		$decodedJsonBody = json_decode($body, true);
-		$this->assertEquals(200, $decodedJsonBody['code']);
+		static::assertEquals(200, $decodedJsonBody['code']);
 	}
 
 
@@ -139,10 +135,10 @@ class CollectionIntegrationTest extends
 
 		$body = $responseObject->body;
 
-		$this->assertArrayHasKey('code', json_decode($body, true));
+		static::assertArrayHasKey('code', json_decode($body, true));
 		$decodedJsonBody = json_decode($body, true);
-		$this->assertEquals(200, $decodedJsonBody['code']);
-		$this->assertEquals($collectionName, $decodedJsonBody['name']);
+		static::assertEquals(200, $decodedJsonBody['code']);
+		static::assertEquals($collectionName, $decodedJsonBody['name']);
 	}
 
 
@@ -160,10 +156,10 @@ class CollectionIntegrationTest extends
 
 		$body = $responseObject->body;
 
-		$this->assertArrayHasKey('code', json_decode($body, true));
+		static::assertArrayHasKey('code', json_decode($body, true));
 		$decodedJsonBody = json_decode($body, true);
-		$this->assertEquals(200, $decodedJsonBody['code']);
-		$this->assertEquals($collectionName, $decodedJsonBody['name']);
+		static::assertEquals(200, $decodedJsonBody['code']);
+		static::assertEquals($collectionName, $decodedJsonBody['name']);
 	}
 
 
@@ -182,9 +178,9 @@ class CollectionIntegrationTest extends
 
 		$body = $responseObject->body;
 
-		$this->assertArrayHasKey('code', json_decode($body, true));
+		static::assertArrayHasKey('code', json_decode($body, true));
 		$decodedJsonBody = json_decode($body, true);
-		$this->assertEquals(200, $decodedJsonBody['code']);
+		static::assertEquals(200, $decodedJsonBody['code']);
 	}
 
 
@@ -208,7 +204,7 @@ class CollectionIntegrationTest extends
 				$foundGraphs = true;
 			}
 		}
-		$this->assertTrue($foundGraphs);
+		static::assertTrue($foundGraphs);
 	}
 
 
@@ -233,7 +229,7 @@ class CollectionIntegrationTest extends
 				$foundGraphs = true;
 			}
 		}
-		$this->assertFalse($foundGraphs);
+		static::assertFalse($foundGraphs);
 	}
 
 

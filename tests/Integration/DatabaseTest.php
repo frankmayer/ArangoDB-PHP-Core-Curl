@@ -16,7 +16,7 @@ use frankmayer\ArangoDbPhpCore\Api\Rest\Database;
 use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCoreCurl\Connectors\Connector;
 use function frankmayer\ArangoDbPhpCoreCurl\getClient;
-use HttpResponse;
+use frankmayer\ArangoDbPhpCoreCurl\Protocols\Http\HttpResponse;
 
 
 /**

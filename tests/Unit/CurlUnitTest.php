@@ -9,12 +9,13 @@
 
 namespace frankmayer\ArangoDbPhpCoreCurl;
 
-require_once('ArangoDbPhpCoreCurlUnitTestCase.php');
+require_once __DIR__ . '/ArangoDbPhpCoreCurlUnitTestCase.php';
 
 
-class CurlUnitTest extends ArangoDbPhpCoreCurlUnitTestCase
+class CurlUnitTest extends
+	ArangoDbPhpCoreCurlUnitTestCase
 {
-    public function testIfCurlClientInstantiable()
-    {
-     }
+	public function testIfCurlClientInstantiable()
+	{
+	}
 }

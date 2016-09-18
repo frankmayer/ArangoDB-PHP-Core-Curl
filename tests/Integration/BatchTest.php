@@ -33,8 +33,9 @@ class BatchIntegrationTest extends
 	/**
 	 * @var
 	 */
-	public $collectionNames;
 	protected $connector;
+
+	protected $collectionNames = [];
 
 
 	/**
@@ -71,9 +72,8 @@ class BatchIntegrationTest extends
 		}
 
 		/** @var HttpResponse $responseObject */
-		$batch          = new Batch($this->client);
-		$responseObject = $batch->send($this->client, $batchParts);
-		$this->assertEquals(200, $responseObject->status);
+		$responseObject = Batch::send($this->client, $batchParts);
+		static::assertEquals(200, $responseObject->status);
 
 		$batchResponseParts = $responseObject->batch;
 
@@ -81,9 +81,9 @@ class BatchIntegrationTest extends
 		foreach ($batchResponseParts as $batchPart)
 		{
 			$body = $batchPart->body;
-			$this->assertArrayHasKey('code', json_decode($body, true));
+			static::assertArrayHasKey('code', json_decode($body, true));
 			$decodedJsonBody = json_decode($body, true);
-			$this->assertEquals(200, $decodedJsonBody['code']);
+			static::assertEquals(200, $decodedJsonBody['code']);
 		}
 
 		$batchParts = [];
@@ -96,17 +96,16 @@ class BatchIntegrationTest extends
 			$batchParts[] = $collection->drop($collectionName, ['isBatchPart' => true]);
 		}
 
-		$batch          = new Batch($this->client);
-		$responseObject = $batch->send($this->client, $batchParts);
+		$responseObject = Batch::send($this->client, $batchParts);
 
 		$batchResponseParts = $responseObject->batch;
 
 		foreach ($batchResponseParts as $batchPart)
 		{
 			$body = $batchPart->body;
-			$this->assertArrayHasKey('code', json_decode($body, true));
+			static::assertArrayHasKey('code', json_decode($body, true));
 			$decodedJsonBody = json_decode($body, true);
-			$this->assertEquals(200, $decodedJsonBody['code']);
+			static::assertEquals(200, $decodedJsonBody['code']);
 		}
 	}
 
@@ -124,7 +123,7 @@ class BatchIntegrationTest extends
 			/** @var $responseObject HttpResponse */
 			$batchParts[] = $collection->drop($collectionName, ['isBatchPart' => true]);
 		}
-		$batch = new Batch($this->client);
-		$batch->send($this->client, $batchParts);
+		$responseObject = Batch::send($this->client, $batchParts);
+		static::assertEquals(200, $responseObject->status);
 	}
 }

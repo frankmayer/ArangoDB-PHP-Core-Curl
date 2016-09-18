@@ -18,7 +18,7 @@ use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCore\ClientException;
 use frankmayer\ArangoDbPhpCoreCurl\Connectors\Connector;
 use function frankmayer\ArangoDbPhpCoreCurl\getClient;
-use HttpResponse;
+use frankmayer\ArangoDbPhpCoreCurl\Protocols\Http\HttpResponse;
 
 
 /**
@@ -51,9 +51,7 @@ class DocumentIntegrationTest extends
 			'Request',
 			function ()
 			{
-				$request = $this->client->getRequest();
-
-				return $request;
+				return $this->client->getRequest();
 			}
 		);
 
@@ -72,10 +70,10 @@ class DocumentIntegrationTest extends
 
 		$body = $responseObject->body;
 
-		$this->assertArrayHasKey('code', json_decode($body, true));
+		static::assertArrayHasKey('code', json_decode($body, true));
 		$decodedJsonBody = json_decode($body, true);
-		$this->assertEquals(200, $decodedJsonBody['code']);
-		$this->assertEquals($collectionName, $decodedJsonBody['name']);
+		static::assertEquals(200, $decodedJsonBody['code']);
+		static::assertEquals($collectionName, $decodedJsonBody['name']);
 	}
 
 
@@ -103,7 +101,7 @@ class DocumentIntegrationTest extends
 		if (isset($collectionName))
 		{
 			$urlQuery = array_merge(
-				$urlQuery ? $urlQuery : [],
+				$urlQuery ?: [],
 				['collection' => $collectionName]
 			);
 		}
@@ -120,9 +118,9 @@ class DocumentIntegrationTest extends
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayNotHasKey('error', $decodedJsonBody);
+		static::assertArrayNotHasKey('error', $decodedJsonBody);
 
-		$this->assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
+		static::assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
 	}
 
 
@@ -143,8 +141,8 @@ class DocumentIntegrationTest extends
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayHasKey('error', $decodedJsonBody);
-		$this->assertEquals(true, $decodedJsonBody['error']);
+		static::assertArrayHasKey('error', $decodedJsonBody);
+		static::assertEquals(true, $decodedJsonBody['error']);
 	}
 
 	/**
@@ -162,9 +160,9 @@ class DocumentIntegrationTest extends
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayNotHasKey('error', $decodedJsonBody);
+		static::assertArrayNotHasKey('error', $decodedJsonBody);
 
-		$this->assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
+		static::assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
 
 		//todo: fix test after having moved getall to simple queries
 		//        $responseObject = $document->getAll($collectionName);
@@ -184,7 +182,7 @@ class DocumentIntegrationTest extends
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayNotHasKey('error', $decodedJsonBody);
+		static::assertArrayNotHasKey('error', $decodedJsonBody);
 
 		// Try to delete a second time .. should throw an error
 		$responseObject = $document->delete($collectionName . '/1');
@@ -192,16 +190,16 @@ class DocumentIntegrationTest extends
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayHasKey('error', $decodedJsonBody);
-		$this->assertEquals(true, $decodedJsonBody['error']);
+		static::assertArrayHasKey('error', $decodedJsonBody);
+		static::assertEquals(true, $decodedJsonBody['error']);
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertEquals(true, $decodedJsonBody['error']);
+		static::assertEquals(true, $decodedJsonBody['error']);
 
-		$this->assertEquals(404, $decodedJsonBody['code']);
+		static::assertEquals(404, $decodedJsonBody['code']);
 
-		$this->assertEquals(1202, $decodedJsonBody['errorNum']);
+		static::assertEquals(1202, $decodedJsonBody['errorNum']);
 	}
 
 
@@ -221,9 +219,9 @@ class DocumentIntegrationTest extends
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayNotHasKey('error', $decodedJsonBody);
+		static::assertArrayNotHasKey('error', $decodedJsonBody);
 
-		$this->assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
+		static::assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
 
 		$requestBody = ['name' => 'Mike'];
 
@@ -234,29 +232,29 @@ class DocumentIntegrationTest extends
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayNotHasKey('error', $decodedJsonBody);
+		static::assertArrayNotHasKey('error', $decodedJsonBody);
 
-		$this->assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
+		static::assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
 
 		$document = new Document($this->client);
 
 		$responseObject = $document->get($collectionName . '/1', $requestBody);
 		$responseBody   = $responseObject->body;
 
-		$this->assertArrayNotHasKey('bike', json_decode($responseBody, true));
+		static::assertArrayNotHasKey('bike', json_decode($responseBody, true));
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertEquals('Mike', $decodedJsonBody['name']);
+		static::assertEquals('Mike', $decodedJsonBody['name']);
 
-		$this->assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
+		static::assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
 
 		$responseObject = $document->delete($collectionName . '/1');
 		$responseBody   = $responseObject->body;
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayNotHasKey('error', $decodedJsonBody);
+		static::assertArrayNotHasKey('error', $decodedJsonBody);
 
 		// Try to delete a second time .. should throw an error
 		$responseObject = $document->delete($collectionName . '/1');
@@ -264,14 +262,14 @@ class DocumentIntegrationTest extends
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayHasKey('error', $decodedJsonBody);
-		$this->assertEquals(true, $decodedJsonBody['error']);
+		static::assertArrayHasKey('error', $decodedJsonBody);
+		static::assertEquals(true, $decodedJsonBody['error']);
 
-		$this->assertEquals(true, $decodedJsonBody['error']);
+		static::assertEquals(true, $decodedJsonBody['error']);
 
-		$this->assertEquals(404, $decodedJsonBody['code']);
+		static::assertEquals(404, $decodedJsonBody['code']);
 
-		$this->assertEquals(1202, $decodedJsonBody['errorNum']);
+		static::assertEquals(1202, $decodedJsonBody['errorNum']);
 	}
 
 
@@ -291,9 +289,9 @@ class DocumentIntegrationTest extends
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayNotHasKey('error', $decodedJsonBody);
+		static::assertArrayNotHasKey('error', $decodedJsonBody);
 
-		$this->assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
+		static::assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
 
 		$requestBody = ['name' => 'Mike'];
 
@@ -304,29 +302,29 @@ class DocumentIntegrationTest extends
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayNotHasKey('error', $decodedJsonBody);
+		static::assertArrayNotHasKey('error', $decodedJsonBody);
 
-		$this->assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
+		static::assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
 
 		$document = new Document($this->client);
 
 		$responseObject = $document->get($collectionName . '/1', $requestBody);
 		$responseBody   = $responseObject->body;
 
-		$this->assertArrayHasKey('bike', json_decode($responseBody, true));
+		static::assertArrayHasKey('bike', json_decode($responseBody, true));
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertEquals('Mike', $decodedJsonBody['name']);
+		static::assertEquals('Mike', $decodedJsonBody['name']);
 
-		$this->assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
+		static::assertEquals($collectionName . '/1', $decodedJsonBody['_id']);
 
 		$responseObject = $document->delete($collectionName . '/1');
 		$responseBody   = $responseObject->body;
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayNotHasKey('error', $decodedJsonBody);
+		static::assertArrayNotHasKey('error', $decodedJsonBody);
 
 		// Try to delete a second time .. should throw an error
 		$responseObject = $document->delete($collectionName . '/1');
@@ -334,13 +332,13 @@ class DocumentIntegrationTest extends
 
 		$decodedJsonBody = json_decode($responseBody, true);
 
-		$this->assertArrayHasKey('error', $decodedJsonBody);
+		static::assertArrayHasKey('error', $decodedJsonBody);
 
-		$this->assertEquals(true, $decodedJsonBody['error']);
+		static::assertEquals(true, $decodedJsonBody['error']);
 
-		$this->assertEquals(404, $decodedJsonBody['code']);
+		static::assertEquals(404, $decodedJsonBody['code']);
 
-		$this->assertEquals(1202, $decodedJsonBody['errorNum']);
+		static::assertEquals(1202, $decodedJsonBody['errorNum']);
 	}
 
 
@@ -357,9 +355,7 @@ class DocumentIntegrationTest extends
 			'Request',
 			function ()
 			{
-				$request = $this->client->getRequest();
-
-				return $request;
+				return $this->client->getRequest();
 			}
 		);
 
@@ -373,11 +369,11 @@ class DocumentIntegrationTest extends
 		$responseObject = $request->send();
 		$body           = $responseObject->body;
 
-		$this->assertArrayHasKey('code', json_decode($body, true));
+		static::assertArrayHasKey('code', json_decode($body, true));
 
 		$decodedJsonBody = json_decode($body, true);
 
-		$this->assertEquals(200, $decodedJsonBody['code']);
+		static::assertEquals(200, $decodedJsonBody['code']);
 
 		$collectionName = 'ArangoDB-PHP-Core-CollectionTestSuite-NonExistingCollection';
 		$collection     = new Collection($this->client);

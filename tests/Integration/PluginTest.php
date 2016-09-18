@@ -19,6 +19,7 @@ use frankmayer\ArangoDbPhpCore\Plugins\PluginManager;
 use frankmayer\ArangoDbPhpCore\Plugins\TestPlugin;
 use frankmayer\ArangoDbPhpCoreCurl\Connectors\Connector;
 use function frankmayer\ArangoDbPhpCoreCurl\getClient;
+use frankmayer\ArangoDbPhpCoreCurl\Protocols\Http\HttpResponse;
 
 
 /**
@@ -57,7 +58,10 @@ class PluginIntegrationTest extends
 	public function testRegisterPluginsWithDifferentPrioritiesTestAndUnRegisterPlugin()
 	{
 		$this->client->setPluginManager(new PluginManager($this->client));
-		$this->assertInstanceOf('\frankmayer\ArangoDbPhpCore\Plugins\PluginManager', $this->client->getPluginManager());
+		static::assertInstanceOf(
+			'\frankmayer\ArangoDbPhpCore\Plugins\PluginManager',
+			$this->client->getPluginManager()
+		);
 
 		$tracer            = new TestPlugin();
 		$tracer->priority  = 0;
@@ -76,7 +80,7 @@ class PluginIntegrationTest extends
 		];
 
 		$this->client->setPluginsFromPluginArray($this->clientOptions['plugins']);
-		$this->assertArrayHasKey('tracer3', $this->client->pluginManager->pluginStorage);
+		static::assertArrayHasKey('tracer3', $this->client->pluginManager->pluginStorage);
 
 		$e = null;
 		try
@@ -86,7 +90,7 @@ class PluginIntegrationTest extends
 		catch (\Exception $e)
 		{
 		}
-		$this->assertInstanceOf('\Exception', $e);
+		static::assertInstanceOf('\Exception', $e);
 
 		/** @var $responseObject HttpResponse */
 		$collection = new Collection($this->client);
@@ -94,7 +98,7 @@ class PluginIntegrationTest extends
 		/** @var $responseObject HttpResponse */
 		$responseObject = $collection->getAll();
 
-		$this->assertInstanceOf(
+		static::assertInstanceOf(
 			'frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequestInterface',
 			$responseObject->request
 		);

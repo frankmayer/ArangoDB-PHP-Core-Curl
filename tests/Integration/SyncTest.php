@@ -11,7 +11,7 @@ namespace frankmayer\ArangoDbPhpCoreCurl\Tests\Integration;
 
 require_once __DIR__ . '/ArangoDbPhpCoreCurlIntegrationTestCase.php';
 
-use frankmayer\ArangoDbPhpCoreCurl\Client;
+use frankmayer\ArangoDbPhpCore\Client;
 use frankmayer\ArangoDbPhpCoreCurl\Connectors\Connector;
 use function frankmayer\ArangoDbPhpCoreCurl\getClient;
 
@@ -59,9 +59,7 @@ class SyncIntegrationTest extends
 			'Request',
 			function ()
 			{
-				$request = $this->client->getRequest();
-
-				return $request;
+				return $this->client->getRequest();
 			}
 		);
 		$query = 'RETURN SLEEP(1)';
@@ -85,8 +83,8 @@ class SyncIntegrationTest extends
 
 		$body = $responseObject->body;
 
-		$this->assertArrayHasKey('code', json_decode($body, true));
+		static::assertArrayHasKey('code', json_decode($body, true));
 		$decodedJsonBody = json_decode($body, true);
-		$this->assertEquals(201, $decodedJsonBody['code']);
+		static::assertEquals(201, $decodedJsonBody['code']);
 	}
 }

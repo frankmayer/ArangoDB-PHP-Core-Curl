@@ -13,7 +13,6 @@ namespace frankmayer\ArangoDbPhpCoreCurl\Connectors;
 use frankmayer\ArangoDbPhpCore\ClientOptions;
 use frankmayer\ArangoDbPhpCore\Connectors\AbstractHttpConnector;
 use frankmayer\ArangoDbPhpCore\Protocols\Http\AbstractHttpRequest;
-use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpConnectorInterface;
 use frankmayer\ArangoDbPhpCore\ServerException;
 
 
@@ -24,8 +23,7 @@ use frankmayer\ArangoDbPhpCore\ServerException;
  * @package frankmayer\ArangoDbPhpCoreCurl
  */
 class Connector extends
-	AbstractHttpConnector implements
-	HttpConnectorInterface
+	AbstractHttpConnector
 {
 	/**
 	 * @param AbstractHttpRequest $request

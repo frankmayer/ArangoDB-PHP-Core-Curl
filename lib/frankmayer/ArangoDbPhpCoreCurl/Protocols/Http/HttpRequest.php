@@ -10,7 +10,7 @@
 
 namespace frankmayer\ArangoDbPhpCoreCurl\Protocols\Http;
 
-use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequestInterface;
+
 
 
 /**
@@ -20,7 +20,6 @@ use frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequestInterface;
  * @package frankmayer\ArangoDbPhpCoreCurl
  */
 class HttpRequest extends
-	\frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequest implements
-	HttpRequestInterface
+	\frankmayer\ArangoDbPhpCore\Protocols\Http\HttpRequest
 {
 }
